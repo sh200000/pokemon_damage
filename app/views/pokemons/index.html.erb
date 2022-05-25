@@ -1,5 +1,5 @@
 <div class="main">
-  <div class="attack_difense_wrapper">
+  <div class="attack_defense_wrapper">
     <form class="attack_side_form">
       <div class="status1">
         <div class="status1_left">
@@ -17,49 +17,53 @@
         </div>
         <div class="status1_right">
           <div class="level">Lv</div>
-          <input type="text" placeholder="50" class="level_form" id="attack_level">
+          <input type="number" value="50" class="level_form" id="attack_level">
         </div>
       </div>
       <div class="status2">
         <div class="attack_wrapper">
           <div class="attack">攻撃</div>
-          <input type="text" placeholder="150" class="attack_form" id="attack_status">
+          <input type="number" placeholder="150" class="attack_form" id="attack_status">
           <div class="attack_rise"></div>
           <div class="attack_down"></div>
         </div>
         <div class="individual_wrapper"> 
           <div class="individual">個体値</div>
-          <input type="text" placeholder="31" class="individual_form" id="attack_individual">
+          <input type="text" value="31" class="individual_form" id="attack_individual">
         </div>
         <div class="effort_wrapper">
           <div class="effort">努力値</div>
-          <input type="text" placeholder="252" class="effort_form" id="attack_effort">
+          <input type="text" value="252" class="effort_form" id="attack_effort">
         </div>
       </div>
       <div class="status2"></div>
       <div class="status3">
         <div class="personality_wrapper">
           <div class="personality">性格</div>
-
-          <div class="personality_down"></div>
-          <div class="personality_same"></div>
-          <div class="personality_rise"></div>
+          <input type="radio" name="personality" value="0.9" class="attack_personality" id="attack_personality_down">
+          <label for="attack_personality_down">0.9</label>
+          <input type="radio" name="personality" value="1.0" class="attack_personality" id="attack_personality_same"  checked>
+          <label for="attack_personality_same">1.0</label>
+          <input type="radio" name="personality" value="1.1" class="attack_personality" id="attack_personality_rise">
+          <label for="attack_personality_rise">1.1</label>
+          
         </div>
 
         <div class="rank_wrapper">
           <div class="rank">ランク</div>
-          <input type="text" placeholder="+1" class="rank_form">
+          <input type="text" value="0" class="rank_form" id="attack_rank_form">
+          <label for="attack_rank_form" class="rank_number">+1</label>
           <div class="rank_rise"></div>
           <div class="rank_down"></div>
         </div>
       </div>
       <div class="status4">
         <div class="characteristic">とくせい</div>
-        <input type="text" placeholder="せいでんき" class="characteristic_form">
+        <input type="text" placeholder="せいでんき" class="characteristic_form" id="attack_characteristic">
       </div>
       <div class="status5">
         <div class="tool">道具</div>
-        <input type="text" placeholder="こだわりハチマキ" class="tool_form">
+        <input type="text" placeholder="こだわりハチマキ" class="tool_form" id="attack_tool">
       </div>
       <div class="status6">
         <div class="technique">技名</div>
@@ -67,22 +71,23 @@
       </div>
       <div class="status7">
         <div class="power">威力</div>
-        <input type="text" placeholder="90" class="power_form" id="attack_power">
+        <input type="number" placeholder="90" class="power_form" id="attack_power">
         <div class="technique_type">タイプ</div>
         <input type="text" placeholder="でんき" class="technique_type_form" id="attack_type">
       </div>
       <div class="status8">
-        <div class="check_image"></div>
+        <input type="checkbox" name="burn" value="0.5" id="attack_burn">
+        <label for="attack_burn" class="check_image"></label>
         <div class="condition">やけど</div>
       </div>
     </form>
-    <form class="difense_side_form">
+    <form class="defense_side_form">
       <div class="status9">
         <div class="status9_left">
           <div class="name">名前</div>
           <div class="name_wrapper">
             <div class="status_number">H90 A90 B80 C90 D90 S80</div>
-            <input type="text" placeholder="ピカチュウ" class="name_form">
+            <input type="text" placeholder="ピカチュウ" class="name_form" id="defense_pokemon_name">
           </div>
           
           <div class="type">タイプ</div>
@@ -93,70 +98,76 @@
         </div>
         <div class="status9_right">
           <div class="level">Lv</div>
-          <input type="text" placeholder="50" class="level_form">
+          <input type="number" value="50" class="level_form" id="defense_level">
         </div>
       </div>
       <div class="status10">
         <div class="physical_wrapper">
           <div class="physical">HP</div>
-          <input type="text" placeholder="160" class="physical_form">
+          <input type="number" placeholder="160" class="physical_form" id="defense_physical_status">
           <div class="physical_rise"></div>
           <div class="physical_down"></div>
         </div>
         <div class="individual_wrapper"> 
           <div class="individual">個体値</div>
-          <input type="text" placeholder="31" class="individual_form">
+          <input type="number" value="31" class="individual_form" id="defense_physical_individual">
         </div>
         <div class="effort_wrapper">
           <div class="effort">努力値</div>
-          <input type="text" placeholder="252" class="effort_form">
+          <input type="number" value="252" class="effort_form" id="defense_physical_effort">
         </div>
       </div>
       <div class="status11">
-        <div class="difense_wrapper">
-          <div class="difense">防御</div>
-          <input type="text" placeholder="160" class="difense_form">
-          <div class="difense_rise"></div>
-          <div class="difense_down"></div>
+        <div class="defense_wrapper">
+          <div class="defense">防御</div>
+          <input type="number" placeholder="160" class="defense_form" id="defense_defense_status">
+          <div class="defense_rise"></div>
+          <div class="defense_down"></div>
         </div>
         <div class="individual_wrapper"> 
           <div class="individual">個体値</div>
-          <input type="text" placeholder="31" class="individual_form">
+          <input type="number" value="31" class="individual_form" id="defense_defense_individual">
         </div>
         <div class="effort_wrapper">
           <div class="effort">努力値</div>
-          <input type="text" placeholder="252" class="effort_form">
+          <input type="number" value="252" class="effort_form" id="defense_defense_effort">
         </div>
       </div>
       <div class="status12">
         <div class="personality_wrapper">
           <div class="personality">性格</div>
-          <div class="personality_down"></div>    
-          <div class="personality_same"></div>
-          <div class="personality_rise"></div>
+          <input type="radio" name="personality" value="0.9" class="defense_personality" id="defense_personality_down">
+          <label for="defense_personality_down">0.9</label>
+          <input type="radio" name="personality" value="1.0" class="defense_personality" id="defense_personality_same"  checked>
+          <label for="defense_personality_same">1.0</label>
+          <input type="radio" name="personality" value="1.1" class="defense_personality" id="defense_personality_rise">
+          <label for="defense_personality_rise">1.1</label>
         </div>
 
         <div class="rank_wrapper">
           <div class="rank">ランク</div>
-          <input type="text" placeholder="0" class="rank_form">
+          <input type="text" value="0" class="rank_form" id="defense_rank_form">
+          <label for="defense_rank_form" class="rank_number">+1</label>
           <div class="rank_rise"></div>
           <div class="rank_down"></div>
         </div>
       </div>
       <div class="status13">
         <div class="characteristic">とくせい</div>
-        <input type="text" placeholder="ものひろい" class="characteristic_form">
+        <input type="text" placeholder="ものひろい" class="characteristic_form" id="defense_characteristic">
       </div>
       <div class="status14">
         <div class="tool">道具</div>
-        <input type="text" placeholder="とつげきチョッキ" class="tool_form">
+        <input type="text" placeholder="とつげきチョッキ" class="tool_form" id="defense_tool">
       </div>
       <div class="status15"></div>
       <div class="status15"></div>
       <div class="status15">
-        <div class="check_image"></div>
+        <input type="checkbox" name="burn" value="0.5" id="defense_reflector">
+        <label for="defense_reflector" class="check_image"></label>
         <div class="condition">リフレクター</div>
-        <div class="check_image"></div>
+        <input type="checkbox" name="burn" value="0.5" id="defense_hikari">
+        <label for="defense_hikari" class="check_image"></label>
         <div class="condition">ひかりのかべ</div>
       </div>
     </form>
@@ -164,22 +175,33 @@
   <div class="environment">
     <div class="wether_wrapper"> 
       <div class="wether">天候</div>
-      <div class="wether_none">なし</div>
-      <div class="rain">あめ</div>
-      <div class="sunny">はれ</div>
-      <div class="sand">すな</div>
-      <div class="ice">あられ</div>
+      <input type="radio" name="wether" value="なし" class="wether_content" id="wether_none" checked>
+      <label for="wether_none" class="check_block">なし</label>
+      <input type="radio" name="wether" value="あめ" class="wether_content" id="wether_rain">
+      <label for="wether_rain" class="check_block">あめ</label>
+      <input type="radio" name="wether" value="はれ" class="wether_content" id="wether_sunny">
+      <label for="wether_sunny" class="check_block">はれ</label>
+      <input type="radio" name="wether" value="すな" class="wether_content" id="wether_sand">
+      <label for="wether_sand" class="check_block">すな</label>
+      <input type="radio" name="wether" value="あられ" class="wether_content" id="wether_ice">
+      <label for="wether_ice" class="check_block">あられ</label>
     </div>
     <div class="field_wrapper">
       <div class="field">フィールド</div>
-      <div class="field_none">なし</div>
-      <div class="electric">エレキ</div>
-      <div class="grass">グラス</div>
-      <div class="psycho">サイコ</div>
-      <div class="mist">ミスト</div>
+      <input type="radio" name="field" value="なし" class="field_content" id="wether_none" checked>
+      <label for="wether_none" class="check_block">なし</label>
+      <input type="radio" name="field" value="エレキ" class="field_content" id="wether_rain">
+      <label for="wether_rain" class="check_block">エレキ</label>
+      <input type="radio" name="field" value="グラス" class="field_content" id="wether_sunny">
+      <label for="wether_sunny" class="check_block">グラス</label>
+      <input type="radio" name="field" value="サイコ" class="field_content" id="wether_sand">
+      <label for="wether_sand" class="check_block">サイコ</label>
+      <input type="radio" name="field" value="ミスト" class="field_content" id="wether_ice">
+      <label for="wether_ice" class="check_block">ミスト</label>
     </div>
     <div class="gravity_wrapper">
-      <div class="check_image"></div>
+      <input type="checkbox" name="gravity" value="0.7" id="gravity">
+      <label for="gravity" class="check_image"></label>
       <div class="gravity">じゅうりょく</div>
     </div>
   </div>

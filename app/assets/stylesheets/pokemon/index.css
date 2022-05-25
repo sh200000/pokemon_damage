@@ -1,14 +1,14 @@
 .main{
 
 }
-.attack_difense_wrapper{
+.attack_defense_wrapper{
   background-color: aqua;
   width: 100%;
   display: flex;
   align-items: baseline;
   justify-content: space-around;
 }
-.attack_side_form, .difense_side_form{
+.attack_side_form, .defense_side_form{
   background-color: aquamarine;
   width: 700px;
 }
@@ -85,28 +85,28 @@
   align-items: center;
   justify-content: space-around;
 }
-.attack_wrapper, .physical_wrapper, .difense_wrapper{
+.attack_wrapper, .physical_wrapper, .defense_wrapper{
   display: flex;
   align-items: center;
   justify-content: space-around;
 }
-.attack, .physical, .difense{
+.attack, .physical, .defense{
 
 }
-.attack_form, .physical_form, .difense_form{
+.attack_form, .physical_form, .defense_form{
   display: block;
   height: 20px;
   width: 100px;
   border: 1px solid gray;
   border-radius: 2px;
 }
-.attack_rise, .physical_rise, .difense_rise{
+.attack_rise, .physical_rise, .defense_rise{
   background-color: red;
   height: 20px;
   width: 20px;
   
 }
-.attack_down, .physical_down, .difense_down{
+.attack_down, .physical_down, .defense_down{
   background-color: blue;
   height: 20px;
   width: 20px;
@@ -157,24 +157,16 @@
 .personality{
 
 }
-.personality_down{
-  background-color: blue;
-  height: 20px;
-  width: 20px;
+/*input[type=radio] {
+  display: none; 
+  }*/
 
+.attack_personality, .defense_personality{
+  background-color: darksalmon;
+  border: 1px solid black;
 }
-.personality_same{
-  background-color: green;
-  height: 20px;
-  width: 20px;
 
-}
-.personality_rise{
-  background-color: red;
-  height: 20px;
-  width: 20px;
 
-}
 .rank_wrapper{
   background-color: aqua;
   display: flex;
@@ -185,11 +177,8 @@
 
 }
 .rank_form{
-  display: block;
-  height: 20px;
-  width: 150px;
-  border: 1px solid gray;
-  border-radius: 2px;
+  display: none;
+  
 }
 .rank_rise{
   background-color: red;
@@ -295,12 +284,17 @@
   justify-content: space-around;
 }
 
+/*input[type=checkbox] {
+  display: none; 
+  }*/
+
 .check_image{
   background-color: red;
   height: 20px;
   width: 20px;
 
 }
+
 
 
 .environment{
@@ -326,9 +320,7 @@
   align-items: center;
   justify-content: space-around;
 }
-.wether_none, .rain, .sunny, .sand,
-.ice, .field_none, .electric, .grass,
-.psycho, .mist{
+.check_block{
   border: 1px solid black;
   height: 30px;
   width: 50px;
