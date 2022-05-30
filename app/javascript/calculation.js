@@ -178,7 +178,7 @@ function calculation (){
       }else if(attackRankForm.value == 0){
         attackRankFormLabel.innerHTML = `±${attackRankForm.value}`
       }else if(attackRankForm.value < 0){
-        attackRankFormLabel.innerHTML = `±${attackRankForm.value}`
+        attackRankFormLabel.innerHTML = `-${attackRankForm.value}`
       }
     }
   })
@@ -202,7 +202,7 @@ function calculation (){
       }else if(attackRankForm.value == 0){
         defenseRankFormLabel.innerHTML = `±${defenseRankForm.value}`
       }else if(defenseRankForm.value < 0){
-        defenseRankFormLabel.innerHTML = `±${defenseRankForm.value}`
+        defenseRankFormLabel.innerHTML = `-${defenseRankForm.value}`
       }
     }
   })
