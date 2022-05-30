@@ -32,6 +32,7 @@
 
 }
 .name_wrapper{
+  position: relative;
 
 }
 .status_number{
@@ -44,6 +45,15 @@
   border: 1px solid gray;
   border-radius: 2px;
 
+}
+
+.search{
+  background-color: gainsboro;
+  height: 20px;
+  width: 50px;
+  position: absolute;
+  top: 40px;
+  left: 40px;
 }
 .type{
 
