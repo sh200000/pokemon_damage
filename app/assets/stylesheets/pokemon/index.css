@@ -1,0 +1,419 @@
+.main{
+
+}
+.attack_defense_wrapper{
+  background-color: aqua;
+  width: 100%;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-around;
+}
+.attack_side_form, .defense_side_form{
+  background-color: aquamarine;
+  width: 700px;
+}
+.status1, .status9{
+  background-color: blue;
+  height: 50px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.status1_left, .status9_left{
+  background-color: blanchedalmond;
+  height: 100%;
+  width: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.name{
+
+}
+.name_wrapper{
+  position: relative;
+
+}
+.status_number{
+  font-size: 5px;
+}
+.name_form{
+  display: block;
+  height: 20px;
+  width: 150px;
+  border: 1px solid gray;
+  border-radius: 2px;
+
+}
+
+.search{
+  background-color: gainsboro;
+  height: 20px;
+  width: 50px;
+  position: absolute;
+  top: 40px;
+  left: 40px;
+}
+.type{
+
+}
+.type_wrapper{
+  height: 100%;
+}
+.type1{
+  font-size: 8px;
+  background-color: blueviolet;
+}
+.type2{
+  font-size: 8px;
+  background-color: fuchsia;
+}
+.status1_right, .status9_right{
+  height: 100%;
+  width: 250px;
+  background-color: cornflowerblue;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.level{
+
+}
+.level_form{
+  display: block;
+  height: 20px;
+  width: 150px;
+  border: 1px solid gray;
+  border-radius: 2px;
+}
+.status2, .status10, .status11{
+  background-color: blueviolet;
+  height: 50px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.attack_wrapper, .physical_wrapper, .defense_wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.attack, .physical, .defense{
+
+}
+.attack_form, .physical_form, .defense_form{
+  display: block;
+  height: 20px;
+  width: 100px;
+  border: 1px solid gray;
+  border-radius: 2px;
+}
+.attack_rise, .physical_rise, .defense_rise{
+  background-color: red;
+  height: 20px;
+  width: 20px;
+  
+}
+.attack_down, .physical_down, .defense_down{
+  background-color: blue;
+  height: 20px;
+  width: 20px;
+
+}
+.individual_wrapper{
+  background-color: azure;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.individual{
+
+}
+.individual_form{
+  display: block;
+  height: 20px;
+  width: 100px;
+  border: 1px solid gray;
+  border-radius: 2px;
+}
+.effort_wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.effort{
+
+}
+.effort_form{
+  display: block;
+  height: 20px;
+  width: 100px;
+  border: 1px solid gray;
+  border-radius: 2px;
+}
+.status3, .status12{
+  background-color: brown;
+  height: 50px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.personality_wrapper{
+  display: flex;
+}
+.personality{
+
+}
+/*input[type=radio] {
+  display: none; 
+  }*/
+
+.attack_personality, .defense_personality{
+  background-color: darksalmon;
+  border: 1px solid black;
+}
+
+
+.rank_wrapper{
+  background-color: aqua;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.rank{
+
+}
+.rank_form{
+  display: none;
+  
+}
+.rank_rise{
+  background-color: red;
+  height: 20px;
+  width: 20px;
+
+}
+.rank_down{
+  background-color: blue;
+  height: 20px;
+  width: 20px;
+
+}
+.status4, .status13{
+  background-color: chartreuse;
+  height: 50px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.characteristic{
+
+}
+.characteristic_form{
+  display: block;
+  height: 20px;
+  width: 150px;
+  border: 1px solid gray;
+  border-radius: 2px;
+
+}
+.status5, .status14{
+  background-color: cornflowerblue;
+  height: 50px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.tool{
+
+}
+.tool_form{
+  display: block;
+  height: 20px;
+  width: 150px;
+  border: 1px solid gray;
+  border-radius: 2px;
+}
+.status6{
+  background-color: coral;
+  height: 50px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.technique{
+
+}
+.technique_form{
+  display: block;
+  height: 20px;
+  width: 150px;
+  border: 1px solid gray;
+  border-radius: 2px;
+}
+.status7{
+  background-color: darkcyan;
+  height: 50px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.power{
+
+}
+.power_form{
+  display: block;
+  height: 20px;
+  width: 150px;
+  border: 1px solid gray;
+  border-radius: 2px;
+}
+.technique_type{
+
+}
+.technique_type_form{
+  display: block;
+  height: 20px;
+  width: 150px;
+  border: 1px solid gray;
+  border-radius: 2px;
+}
+.status8, .status15{
+  background-color: darkgray;
+  height: 50px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+/*input[type=checkbox] {
+  display: none; 
+  }*/
+
+.check_image{
+  background-color: red;
+  height: 20px;
+  width: 20px;
+
+}
+
+
+
+.environment{
+  background-color: darkgoldenrod;
+  height: 100px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.wether_wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.field_wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.gravity_wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+.check_block{
+  border: 1px solid black;
+  height: 30px;
+  width: 50px;
+}
+.damage_all{
+  background-color: darkorange;
+  height: 100px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+}
+.attack_side_wrapper{
+  background-color: blue;
+  width: 10%;
+  height: 100%;
+}
+.damage_main{
+  height: 100%;
+  width: 100%;
+  padding: 0 40px;
+  box-sizing: border-box;
+}
+.damage_wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.figure_wrapper{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.physical_figure{
+  background-color: aliceblue;
+  height: 10px;
+  width: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+}
+.damage_figure_max{
+  background-color: chartreuse;
+  height: 100%;
+  width: 100%;
+}
+.damage_figure_min{
+  background-color: rgb(63, 117, 10);
+  height: 100%;
+}
+.damage_figure_yellow{
+  background-color: rgba(211, 167, 24, 0.966);
+  height: 100%;
+  display: none;
+}
+.damage_figure_red{
+  background-color: rgba(160, 10, 10, 0.966);
+  height: 100%;
+  display: none;
+}
+
+.defense_side_wrapper{
+  background-color: blue;
+  width: 10%;
+  height: 100%;
+}
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+.
+

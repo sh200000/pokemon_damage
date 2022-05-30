@@ -1,3 +1,17 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  root to: 'pokemons#index'
+  resources :pokemons do
+    collection do
+      post 'search'
+    end
+    collection do
+      post 'attack_pokemon'
+    end
+    collection do
+      post 'attack_technique'
+    end
+
+
+
+  end
 end
