@@ -26,7 +26,7 @@
         </div>
         <div class="status2">
           <div class="attack_wrapper">
-            <div class="attack">攻撃</div>
+            <div class="attack" id="attack_letter">攻撃</div>
             <%#<input type="number" placeholder="150" class="attack_form" id="attack_status">%>
             <%= form.number_field :attack_pokemon_status, id: "attack_status", class:"attack_form" %>
             <div class="attack_rise"></div>
@@ -66,9 +66,9 @@
             <div class="rank">ランク</div>
             <%#<input type="text" value="0" class="rank_form" id="attack_rank_form">%>
             <%= form.text_field :attack_pokemon_rank, value:"0", id: "attack_rank_form", class:"rank_form" %>
-            <label for="attack_rank_form" class="rank_number">+1</label>
-            <div class="rank_rise"></div>
-            <div class="rank_down"></div>
+            <label for="attack_rank_form" class="rank_number" id="attack_rank_form_label">±0</label>
+            <div class="rank_rise" id="attack_rank_rise"></div>
+            <div class="rank_down" id="attack_rank_down"></div>
           </div>
         </div>
         <div class="status4">
@@ -90,10 +90,12 @@
           <%#<%= form.text_field :attack_technique_name, id: "attack_technique_name", class:"technique_form" %>
           <select name="attack_technique_name" id="attack_technique_name" >
           </select>
-          <%= form.radio_button :kind, "物理", {class:"kind"} %>
-          <%= form.label :kind, "物理", value: "物理" %>
-          <%= form.radio_button :kind, "特殊", {class:"kind"} %>
-          <%= form.label :kind, "特殊", value: "特殊" %>
+          <%= form.radio_button :kind, "ぶつり", {class:"kind",id:"kind_physics", checked: true} %>
+          <%#<%= form.label :kind, "ぶつり", value: "ぶつり" %>
+          <label for="kind_physics">ぶつり</label>
+          <%= form.radio_button :kind, "とくしゅ", {class:"kind",id:"kind_special"} %>
+          <%#<%= form.label :kind, "とくしゅ", value: "とくしゅ" %>
+          <label for="kind_special">とくしゅ</label>
         </div>
         <div class="status7">
           <div class="power">威力</div>
@@ -157,7 +159,7 @@
         </div>
         <div class="status11">
           <div class="defense_wrapper">
-            <div class="defense">防御</div>
+            <div class="defense" id="defense_letter">防御</div>
             <%#<input type="number" placeholder="160" class="defense_form" id="defense_defense_status">%>
             <%= form.number_field :defense_defense_status, id: "defense_defense_status", class:"defense_form" %>
             <div class="defense_rise"></div>
@@ -197,9 +199,9 @@
             <div class="rank">ランク</div>
             <%#<input type="text" value="0" class="rank_form" id="defense_rank_form">%>
             <%= form.text_field :defense_pokemon_rank, value:"0", id: "defense_rank_form", class:"rank_form" %>
-            <label for="defense_rank_form" class="rank_number">+1</label>
-            <div class="rank_rise"></div>
-            <div class="rank_down"></div>
+            <label for="defense_rank_form" class="rank_number" id="defense_rank_form_label">±0</label>
+            <div class="rank_rise" id="defense_rank_rise"></div>
+            <div class="rank_down" id="defense_rank_down"></div>
           </div>
         </div>
         <div class="status13">
@@ -299,7 +301,10 @@
       </div>
       <div class="figure_wrapper">
         <div class="physical_figure">
-          <div class="damage_figure" id="damage_figure"></div>
+          <div class="damage_figure_max" id="damage_figure_max"></div>
+          <div class="damage_figure_yellow" id="damage_figure_yellow"></div>
+          <div class="damage_figure_red" id="damage_figure_red"></div>
+          <div class="damage_figure_min" id="damage_figure_min"></div>
         </div>
         <div class="physical_number">HP160</div>
       </div>
