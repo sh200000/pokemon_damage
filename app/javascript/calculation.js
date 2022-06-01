@@ -555,7 +555,6 @@ function calculation (){
     const XHR = new XMLHttpRequest();
     XHR.open("POST", "/pokemons/attack_pokemon", true);
     XHR.responseType = "json";
-    console.log(formData);
     XHR.send(formData);
 
     XHR.onload = () => {
@@ -573,9 +572,7 @@ function calculation (){
       })
       
       console.log(XHR.response);
-      console.log(XHR.response.attack_pokemon);
       const attack_pokemon = XHR.response.attack_pokemon;
-      console.log(attack_pokemon.H);
       attackPersonality.forEach(function(list) {
         if (list.checked){
           attackPersonalityValue = list.value;
@@ -605,28 +602,18 @@ function calculation (){
         attackCharacteristic.appendChild(option1);
       })
 
-      console.log(XHR.response.techniques)
-      console.log(XHR.response.techniques[0])
-
-
       while (attackTechniqueName.firstChild) {
         attackTechniqueName.removeChild(attackTechniqueName.firstChild);
-        console.log("き")
       }
       i = 0
       XHR.response.techniques.forEach( function(element){
         let option2 = document.createElement('option');
-        /*console.log(element.attributes)
-        console.log(element.attributes.name)*/
         option2.value = i;
         option2.textContent = element.attributes.name;
         attackTechniqueName.appendChild(option2);
         i = i + 1
         console.log("か")
       });
-
-      
-
 
       /*防御側*/ 
 
@@ -663,14 +650,9 @@ function calculation (){
     };
   });
   defenseReflector.addEventListener("click", () => {
-    console.log("の")
-    console.log(attackTechniqueName.value)
     attackTechniqueNameValueN = parseInt(attackTechniqueName.value)
-    console.log(jsresponse)
     attack_power = jsresponse.techniques[attackTechniqueNameValueN].attributes.power
-    console.log(attack_power)
     attackPower.value = parseInt(attack_power)
-    console.log(jsresponse.technique_type[0])
     attack_type = jsresponse.technique_type[attackTechniqueNameValueN].attributes.name
     attackType.value = attack_type
     
@@ -685,20 +667,14 @@ function calculation (){
         kindValue = list.value;
       }
     })
-    console.log(kindValue)
-
-
   });
   defenseHikari.addEventListener("click", () => {
-    console.log(gosyagotyounyuu(5.51))
-    console.log("た")
     fieldContent.forEach(function(list) {
       if (list.checked){
         fieldContentValue = list.value;
       }
     })
     console.log(fieldContentValue)
-
     console.log(attackType.value)
     console.log(jsresponse.techniques[parseInt(attackTechniqueName.value)].attributes.name)
     console.log(attackRankForm.value)
@@ -752,13 +728,11 @@ function calculation (){
     console.log(damage_ratio_max_percent)
 
     if(damage_ratio_max_percent < 50 ){
-      console.log("も")
       damageFigureYellow.removeAttribute("style", "display:block;")
       damageFigureRed.removeAttribute("style", "display:block;")
       damageFigureMax.setAttribute("style", `width:${100 - damage_ratio_max_percent}%;`)
       damageFigureMin.setAttribute("style", `width:${damage_ratio_max_percent - damage_ratio_min_percent}%;`)
     }else if(50 <= damage_ratio_max_percent && damage_ratio_max_percent < 75 && damage_ratio_min_percent < 50){
-      console.log("ま")
       damageFigureRed.removeAttribute("style", "display:block;")
       damageFigureMax.setAttribute("style", `width:${100 - damage_ratio_max_percent}%; background-color: orange;`)
       damageFigureYellow.setAttribute("style", `width:${damage_ratio_max_percent - 50}%; display:block;` )
@@ -773,13 +747,11 @@ function calculation (){
       damageFigureMax.setAttribute("style", `width:${100 - damage_ratio_max_percent}%; background-color: red;`)
       damageFigureRed.setAttribute("style", `width:${damage_ratio_max_percent - 75}%; display:block;` )
       damageFigureMin.setAttribute("style", `width:${75 - damage_ratio_min_percent}%; background-color: rgba(211, 167, 24, 0.966);`)
-
     }else if(75 <= damage_ratio_max_percent && damage_ratio_max_percent <= 100 && 75 <= damage_ratio_min_percent){
       damageFigureYellow.removeAttribute("style", "display:block;")
       damageFigureRed.removeAttribute("style", "display:block;")
       damageFigureMax.setAttribute("style", `width:${100 - damage_ratio_max_percent}%; background-color: red;`)
-      damageFigureMin.setAttribute("style", `width:${damage_ratio_max_percent - damage_ratio_min_percent}%; background-color: rgba(160, 10, 10, 0.966);`)
-    
+      damageFigureMin.setAttribute("style", `width:${damage_ratio_max_percent - damage_ratio_min_percent}%; background-color: rgba(160, 10, 10, 0.966);`)   
     }else if(100 <= damage_ratio_max_percent && damage_ratio_min_percent <= 100){
       damageFigureYellow.removeAttribute("style", "display:block;")
       damageFigureRed.removeAttribute("style", "display:block;")
@@ -791,9 +763,6 @@ function calculation (){
       damageFigureMax.setAttribute("style", "width:0%;")
       damageFigureMin.setAttribute("style", "width:0%")
     }
-
-
-
   });
 };
 window.addEventListener('load', calculation);
