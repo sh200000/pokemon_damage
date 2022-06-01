@@ -48,7 +48,6 @@ const damage_calculation = (attack_level,technique_power,attack_status,defense_s
   attack_rankN = parseFloat(attack_rank)
   defense_rankN = parseFloat(defense_rank)
 
-  
   power_hosei = 1.0
   attack_rank_hosei = 1.0
   harikiri = 1.0
@@ -112,8 +111,6 @@ const damage_calculation = (attack_level,technique_power,attack_status,defense_s
     burn_hosei = 0.5
   }
 
-  
-
   defense_pokemon_type.forEach(function(type){
     if(technique_type == "ノーマル"){
       if(type == "いわ" || type == "はがね"){
@@ -129,7 +126,6 @@ const damage_calculation = (attack_level,technique_power,attack_status,defense_s
       if(type == "ほのお" || type == "みず" || type == "いわ" || type == "ドラゴン"){
         type_comp = type_comp * 0.5
       }
-
     }else if(technique_type == "みず"){
       if(type == "ほのお" || type == "じめん" || type == "いわ"){
         type_comp = type_comp * 2.0
@@ -137,7 +133,6 @@ const damage_calculation = (attack_level,technique_power,attack_status,defense_s
       if(type == "みず" || type == "くさ" || type == "ドラゴン"){
         type_comp = type_comp * 0.5
       }
-      
     }else if(technique_type == "でんき"){
       if(type == "みず" || type == "ひこう"){
         type_comp = type_comp * 2.0
@@ -155,7 +150,6 @@ const damage_calculation = (attack_level,technique_power,attack_status,defense_s
       if(type == "ほのお" || type == "くさ" || type == "どく" || type == "ひこう" || type == "むし" || type == "ドラゴン" || type == "はがね"){
         type_comp = type_comp * 0.5
       }
-      
     }else if(technique_type == "こおり"){
       if(type == "くさ" || type == "じめん" || type == "ひこう" || type == "ドラゴン"){
         type_comp = type_comp * 2.0
@@ -173,8 +167,6 @@ const damage_calculation = (attack_level,technique_power,attack_status,defense_s
       if(type == "ゴースト"){
         type_comp = type_comp * 0
       }
-
-      
     }else if(technique_type == "どく"){
       if(type == "くさ" || type == "フェアリー"){
         type_comp = type_comp * 2.0
@@ -185,7 +177,6 @@ const damage_calculation = (attack_level,technique_power,attack_status,defense_s
       if(type == "はがね"){
         type_comp = type_comp * 0
       }
-      
     }else if(technique_type == "じめん"){
       if(type == "ほのお" || type == "でんき" || type == "どく" || type == "いわ" || type == "はがね"){
         type_comp = type_comp * 2.0
@@ -196,7 +187,6 @@ const damage_calculation = (attack_level,technique_power,attack_status,defense_s
       if(type == "ひこう"){
         type_comp = type_comp * 0
       }
-      
     }else if(technique_type == "ひこう"){
       if(type == "くさ" || type == "かくとう" || type == "むし"){
         type_comp = type_comp * 2.0
@@ -214,7 +204,6 @@ const damage_calculation = (attack_level,technique_power,attack_status,defense_s
       if(type == "あく"){
         type_comp = type_comp * 0
       }
-      
     }else if(technique_type == "むし"){
       if(type == "くさ" || type == "エスパー" || type == "あく"){
         type_comp = type_comp * 2.0
@@ -222,7 +211,6 @@ const damage_calculation = (attack_level,technique_power,attack_status,defense_s
       if(type == "ほのお" || type == "かくとう" || type == "どく" || type == "ひこう" || type == "ゴースト" || type == "はがね" || type == "フェアリー"){
         type_comp = type_comp * 0.5
       }
-      
     }else if(technique_type == "いわ"){
       if(type == "ほのお" || type == "こおり" || type == "ひこう" || type == "むし"){
         type_comp = type_comp * 2.0
@@ -272,6 +260,7 @@ const damage_calculation = (attack_level,technique_power,attack_status,defense_s
         type_comp = type_comp * 0.5
       }
     }
+
     if((reflector == "あり" && kind == "ぶつり") || (hikari == "あり" && kind == "とくしゅ")){
       damage_hosei = damage_hosei * 0.5
     }
@@ -284,15 +273,8 @@ const damage_calculation = (attack_level,technique_power,attack_status,defense_s
     if((type_comp == 2 || type_comp == 4) && defense_pokemon_tool == "半減きのみ"){
       damage_hosei = damage_hosei * 0.5
     }
-
-
   })
   
-
-  
-
-
-
 
   final_power = gosyagotyounyuu(technique_powerN * power_hosei)
   final_attack_status = gosyagotyounyuu(Math.floor(Math.floor(attack_statusN * attack_rank_hosei) * harikiri) * attack_status_hosei)
@@ -323,6 +305,21 @@ const gosyagotyounyuu =(num) => {
   }
 };
 
+const attack_status_calculation =() => {
+
+};
+
+const defense_physical_status_calculation =() => {
+
+};
+
+const defense_defense_status_calculation =() => {
+
+};
+
+const damage_calculation_event =() => {
+
+};
 
 
 
@@ -553,7 +550,6 @@ function calculation (){
   })
 
   attackBurn.addEventListener("click", () => {
-    console.log("え")
     const form = document.getElementById("form");
     const formData = new FormData(form);
     const XHR = new XMLHttpRequest();
