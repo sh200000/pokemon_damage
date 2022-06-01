@@ -82,7 +82,7 @@
           <div class="tool">道具</div>
           <%#<input type="text" placeholder="こだわりハチマキ" class="tool_form" id="attack_tool">%>
           <%#<%= form.text_field :attack_pokemon_tool, id: "attack_tool", class:"tool_form" %>
-          <%= form.collection_select(:attack_pokemon_tool, AttackTool.all, :id, :name, {}, {class:"tool_form", id:"attack_tool"}) %>
+          <%= form.collection_select(:attack_pokemon_tool, AttackTool.all, :name, :name, {}, {class:"tool_form", id:"attack_tool"}) %>
         </div>
         <div class="status6">
           <div class="technique">技名</div>
@@ -107,7 +107,7 @@
         </div>
         <div class="status8">
           <%#<input type="checkbox" name="burn" value="0.5" id="attack_burn">%>
-          <%= form.check_box :attack_burn,{} ,"0.5",nil %>
+          <%= form.check_box :attack_burn,{} ,"あり","なし" %>
           <label for="attack_burn" class="check_image"></label>
           <%#<%= form.label :attack_burn, "やけど", class:"check_image" %>
           <div class="condition">やけど</div>
@@ -215,17 +215,17 @@
           <div class="tool">道具</div>
           <%#<input type="text" placeholder="とつげきチョッキ" class="tool_form" id="defense_tool">%>
           <%#<%= form.text_field :defense_pokemon_tool, id: "defense_tool", class:"tool_form" %>
-          <%= form.collection_select(:defense_pokemon_tool, DefensiveTool.all, :id, :name, {}, {class:"tool_form", id:"defense_tool"}) %>
+          <%= form.collection_select(:defense_pokemon_tool, DefensiveTool.all, :name, :name, {}, {class:"tool_form", id:"defense_tool"}) %>
         </div>
         <div class="status15"></div>
         <div class="status15"></div>
         <div class="status15">
           <%#<input type="checkbox" name="burn" value="0.5" id="defense_reflector">%>
-          <%= form.check_box :defense_reflector,{}, "0.5",nil %>
+          <%= form.check_box :defense_reflector,{}, "あり","なし" %>
           <label for="defense_reflector" class="check_image"></label>
           <div class="condition">リフレクター</div>
           <%#<input type="checkbox" name="burn" value="0.5" id="defense_hikari">%>
-          <%= form.check_box :defense_hikari,{}, "0.5",nil %>
+          <%= form.check_box :defense_hikari,{}, "あり","なし" %>
           <label for="defense_hikari" class="check_image"></label>
           <div class="condition">ひかりのかべ</div>
         </div>
@@ -283,7 +283,7 @@
       </div>
       <div class="gravity_wrapper">
         <%#<input type="checkbox" name="gravity" value="0.7" id="gravity">%>
-        <%= form.check_box :gravity,{},"0.7",nil %>
+        <%= form.check_box :gravity,{},"あり","なし" %>
         <label for="gravity" class="check_image"></label>
         <div class="gravity">じゅうりょく</div>
       </div>
