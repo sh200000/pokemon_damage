@@ -305,6 +305,27 @@ const gosyagotyounyuu =(num) => {
   }
 };
 
+const type_background =(typeElement) => {
+  if(typeElement.innerHTML == "ノーマル"){typeElement.setAttribute("style", "background-color: azure;")}
+  else if(typeElement.innerHTML == "ほのお"){typeElement.setAttribute("style", "background-color: red;")}
+  else if(typeElement.innerHTML == "みず"){typeElement.setAttribute("style", "background-color: blue;")}
+  else if(typeElement.innerHTML == "でんき"){typeElement.setAttribute("style", "background-color: yellow;")}
+  else if(typeElement.innerHTML == "くさ"){typeElement.setAttribute("style", "background-color: lightgreen;")}
+  else if(typeElement.innerHTML == "こおり"){typeElement.setAttribute("style", "background-color: cyan;")}
+  else if(typeElement.innerHTML == "かくとう"){typeElement.setAttribute("style", "background-color: brown;")}
+  else if(typeElement.innerHTML == "どく"){typeElement.setAttribute("style", "background-color: purple;")}
+  else if(typeElement.innerHTML == "じめん"){typeElement.setAttribute("style", "background-color: burlywood;")}
+  else if(typeElement.innerHTML == "ひこう"){typeElement.setAttribute("style", "background-color: lightskyblue;")}
+  else if(typeElement.innerHTML == "エスパー"){typeElement.setAttribute("style", "background-color: fuchsia;")}
+  else if(typeElement.innerHTML == "むし"){typeElement.setAttribute("style", "background-color: olivedrab;")}
+  else if(typeElement.innerHTML == "いわ"){typeElement.setAttribute("style", "background-color: darkgoldenrod;")}
+  else if(typeElement.innerHTML == "ゴースト"){typeElement.setAttribute("style", "background-color: navy;")}
+  else if(typeElement.innerHTML == "ドラゴン"){typeElement.setAttribute("style", "background-color: royalblue;")}
+  else if(typeElement.innerHTML == "あく"){typeElement.setAttribute("style", "background-color: rgb(27, 29, 29);")}
+  else if(typeElement.innerHTML == "はがね"){typeElement.setAttribute("style", "background-color: darkgray;")}
+  else if(typeElement.innerHTML == "フェアリー"){typeElement.setAttribute("style", "background-color: pink;")}
+
+}
 
 const attack_status_calculation =(jsresponse,attackPersonality,kind,attackLetter,attackStatus,attackIndividual,attackEffort,attackLevel) => {
   console.log("い")
@@ -353,11 +374,11 @@ const technique_choice =(jsresponse,attackTechniqueName,attackPower,attackType,a
 }
 
 
-const defense_physical_status_calculation =(jsresponse,defensePhysicalStatus,defensePhysicalIndividual,defensePhysicalEffort,defenseLevel) => {
+const defense_physical_status_calculation =(jsresponse,defensePhysicalStatus,defensePhysicalIndividual,defensePhysicalEffort,defenseLevel,physicalNumber) => {
   console.log("お")
   const defense_pokemon = jsresponse.defense_pokemon;
   defensePhysicalStatus.value = status_calculation_HP(defense_pokemon.H,defensePhysicalIndividual.value,defensePhysicalEffort.value,defenseLevel.value)
-  
+  physicalNumber.innerHTML = `HP${defensePhysicalStatus.value}`
 };
 
 const defense_defense_status_calculation =(jsresponse,defensePersonality,kind,defenseLetter,defenseDefenseStatus,defenseDefenseIndividual,defenseDefenseEffort,defenseLevel) => {
@@ -382,7 +403,7 @@ const defense_defense_status_calculation =(jsresponse,defensePersonality,kind,de
   }
 };
 
-const damage_calculation_event =(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin) => {
+const damage_calculation_event =(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin,adjustAbove,adjustUnder) => {
   console.log("き")
   fieldContent.forEach(function(list) {
     if (list.checked){
@@ -442,46 +463,67 @@ const damage_calculation_event =(jsresponse,fieldContent,kind,wetherContent,atta
   damage_ratio_min_percent = damage_ratio_min * 100
   console.log(damage_ratio_max_percent)
 
+  if (100 > (damage_ratio_max_percent+damage_ratio_min_percent)/2){
+    adjustAbove.setAttribute("style", `margin-left:calc(117% - ${(damage_ratio_max_percent+damage_ratio_min_percent)/2}%);`)
+    adjustUnder.setAttribute("style", `margin-left:calc(114% - ${(damage_ratio_max_percent+damage_ratio_min_percent)/2}%);`)
+  }else{
+    adjustAbove.setAttribute("style", `margin-left:17%;`)
+    adjustUnder.setAttribute("style", `margin-left:14%;`)
+  }
+
+  adjustAbove.innerHTML = `${damage_number[0]}~${damage_number[1]}`
+    adjustUnder.innerHTML = `${(Math.round(damage_ratio_min_percent* 10)) / 10}%~${(Math.round(damage_ratio_max_percent* 10)) / 10}%`
+
   if(damage_ratio_max_percent < 50 ){
     damageFigureYellow.removeAttribute("style", "display:block;")
     damageFigureRed.removeAttribute("style", "display:block;")
     damageFigureMax.setAttribute("style", `width:${100 - damage_ratio_max_percent}%;`)
     damageFigureMin.setAttribute("style", `width:${damage_ratio_max_percent - damage_ratio_min_percent}%;`)
+    
   }else if(50 <= damage_ratio_max_percent && damage_ratio_max_percent < 75 && damage_ratio_min_percent < 50){
     damageFigureRed.removeAttribute("style", "display:block;")
     damageFigureMax.setAttribute("style", `width:${100 - damage_ratio_max_percent}%; background-color: orange;`)
     damageFigureYellow.setAttribute("style", `width:${damage_ratio_max_percent - 50}%; display:block;` )
     damageFigureMin.setAttribute("style", `width:${50 - damage_ratio_min_percent}%;`)
+    
   }else if(50 <= damage_ratio_max_percent && damage_ratio_max_percent < 75 && 50 <= damage_ratio_min_percent){
     damageFigureYellow.removeAttribute("style", "display:block;")
     damageFigureRed.removeAttribute("style", "display:block;")
     damageFigureMax.setAttribute("style", `width:${100 - damage_ratio_max_percent}%; background-color: orange;`)
     damageFigureMin.setAttribute("style", `width:${damage_ratio_max_percent - damage_ratio_min_percent}%; background-color: rgba(211, 167, 24, 0.966);`)
+    
   }else if(75 <= damage_ratio_max_percent && damage_ratio_max_percent <= 100 && damage_ratio_min_percent < 75){
     damageFigureYellow.removeAttribute("style", "display:block;")
     damageFigureMax.setAttribute("style", `width:${100 - damage_ratio_max_percent}%; background-color: red;`)
     damageFigureRed.setAttribute("style", `width:${damage_ratio_max_percent - 75}%; display:block;` )
     damageFigureMin.setAttribute("style", `width:${75 - damage_ratio_min_percent}%; background-color: rgba(211, 167, 24, 0.966);`)
+    
   }else if(75 <= damage_ratio_max_percent && damage_ratio_max_percent <= 100 && 75 <= damage_ratio_min_percent){
     damageFigureYellow.removeAttribute("style", "display:block;")
     damageFigureRed.removeAttribute("style", "display:block;")
     damageFigureMax.setAttribute("style", `width:${100 - damage_ratio_max_percent}%; background-color: red;`)
     damageFigureMin.setAttribute("style", `width:${damage_ratio_max_percent - damage_ratio_min_percent}%; background-color: rgba(160, 10, 10, 0.966);`)   
+    
   }else if(100 <= damage_ratio_max_percent && damage_ratio_min_percent <= 100){
     damageFigureYellow.removeAttribute("style", "display:block;")
     damageFigureRed.removeAttribute("style", "display:block;")
     damageFigureMax.setAttribute("style", "width:0%;")
     damageFigureMin.setAttribute("style", `width:${100 - damage_ratio_min_percent}%; background-color: rgba(160, 10, 10, 0.966);`)
+    
   }else{
     damageFigureYellow.removeAttribute("style", "display:block;")
     damageFigureRed.removeAttribute("style", "display:block;")
     damageFigureMax.setAttribute("style", "width:0%;")
     damageFigureMin.setAttribute("style", "width:0%")
+    
   }
 };
 
 function calculation (){
+  const attackStatusNumber  = document.getElementById("attack_status_number");
   const attackPokemonName  = document.getElementById("attack_pokemon_name");
+  const attackType1  = document.getElementById("attack_type1");
+  const attackType2  = document.getElementById("attack_type2");
   const attackLevel  = document.getElementById("attack_level");
   const attackLetter  = document.getElementById("attack_letter");
   const attackStatus  = document.getElementById("attack_status");
@@ -493,6 +535,9 @@ function calculation (){
       attackPersonalityValue = list.value;
     }
   })
+  const attackPersonalityCheckBlock  = document.querySelectorAll(".attack_personality_check_block");
+  
+
   const attackRankForm  = document.getElementById("attack_rank_form");
   const attackRankFormLabel  = document.getElementById("attack_rank_form_label");
   const attackRankRise  = document.getElementById("attack_rank_rise");
@@ -508,11 +553,16 @@ function calculation (){
       kindValue = list.value;
     }
   })
+  const kindCheckBlock = document.querySelectorAll(".kind_check_block");
   const attackPower  = document.getElementById("attack_power");
   const attackType  = document.getElementById("attack_type");
   const attackBurn  = document.getElementById("attack_burn");
+  const burnCheckImage = document.getElementById("burn_check_image");
 
+  const defenseStatusNumber  = document.getElementById("defense_status_number");
   const defensePokemonName  = document.getElementById("defense_pokemon_name");
+  const defenseType1  = document.getElementById("defense_type1");
+  const defenseType2  = document.getElementById("defense_type2");
   const defenseLevel  = document.getElementById("defense_level");
   const defensePhysicalStatus  = document.getElementById("defense_physical_status");
   const defensePhysicalIndividual  = document.getElementById("defense_physical_individual");
@@ -527,6 +577,7 @@ function calculation (){
       defensePersonalityValue = list.value;
     }
   })
+  const defensePersonalityCheckBlock = document.querySelectorAll(".defense_personality_check_block");
   const defenseRankForm  = document.getElementById("defense_rank_form");
   const defenseRankFormLabel  = document.getElementById("defense_rank_form_label");
   const defenseRankRise  = document.getElementById("defense_rank_rise");
@@ -534,7 +585,9 @@ function calculation (){
   const defenseCharacteristic  = document.getElementById("defense_characteristic");
   const defenseTool  = document.getElementById("defense_tool");
   const defenseReflector  = document.getElementById("defense_reflector");
+  const reflectorCheckImage = document.getElementById("reflector_check_image");
   const defenseHikari  = document.getElementById("defense_hikari");
+  const hikariCheckImage = document.getElementById("hikari_check_image");
 
   const wetherContent  = document.querySelectorAll(".wether_content");
   wetherContent.forEach(function(list) {
@@ -542,17 +595,26 @@ function calculation (){
       wetherContentValue = list.value;
     }
   })
+  const wetherCheckBlock = document.querySelectorAll(".wether_check_block");
   const fieldContent  = document.querySelectorAll(".field_content");
   fieldContent.forEach(function(list) {
     if (list.checked){
       fieldContentValue = list.value;
     }
   })
+  const fieldCheckBlock = document.querySelectorAll(".field_check_block");
   const gravity  = document.getElementById("gravity");
+  const gravityCheckImage = document.getElementById("gravity_check_image");
+  const attackSidePokemon  = document.getElementById("attack_side_pokemon");
+  const defenseSidePokemon  = document.getElementById("defense_side_pokemon");
   const damageFigureMax  = document.getElementById("damage_figure_max");
   const damageFigureYellow  = document.getElementById("damage_figure_yellow");
   const damageFigureRed  = document.getElementById("damage_figure_red");
   const damageFigureMin  = document.getElementById("damage_figure_min");
+  const physicalNumber  = document.getElementById("physical_number");
+  const adjustAbove  = document.getElementById("adjust_above");
+  const adjustUnder  = document.getElementById("adjust_under");
+  
 
 
   
@@ -671,6 +733,17 @@ function calculation (){
       jsresponse.attack_pokemon_type.forEach( function(element){
         attack_pokemon_type.push(element.attributes.name)
       })
+      attackStatusNumber.innerHTML = `H${jsresponse.attack_pokemon.H} A${jsresponse.attack_pokemon.A} B${jsresponse.attack_pokemon.B} C${jsresponse.attack_pokemon.C} D${jsresponse.attack_pokemon.D} S${jsresponse.attack_pokemon.S}`
+      attackType1.innerHTML= ""
+      attackType1.setAttribute("style", "background-color: transparent")
+      attackType2.innerHTML= ""
+      attackType2.setAttribute("style", "background-color: transparent")
+      attackType1.innerHTML = attack_pokemon_type[0]
+      type_background(attackType1)
+      if (attack_pokemon_type[1]){
+        attackType2.innerHTML = attack_pokemon_type[1]
+        type_background(attackType2)
+      }
       while (attackCharacteristic.firstChild) {
         attackCharacteristic.removeChild(attackCharacteristic.firstChild);
       }
@@ -690,6 +763,7 @@ function calculation (){
         attackTechniqueName.appendChild(option2);
         i = i + 1
       });
+      attackSidePokemon.innerHTML = jsresponse.attack_pokemon.name
       console.log(jsresponse)
       console.log(attackIndividual)
       technique_choice(jsresponse,attackTechniqueName,attackPower,attackType,attackKindPhysics,attackKindSpecial,kind)
@@ -697,73 +771,96 @@ function calculation (){
       console.log(jsresponse.defense_pokemon)
       if (jsresponse.defense_pokemon !== ""){
         defense_defense_status_calculation(jsresponse,defensePersonality,kind,defenseLetter,defenseDefenseStatus,defenseDefenseIndividual,defenseDefenseEffort,defenseLevel)
-        damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin)
+        damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin,adjustAbove,adjustUnder)
       }
     };
   });
 
   attackLevel.addEventListener("change", () => {
     attack_status_calculation(jsresponse,attackPersonality,kind,attackLetter,attackStatus,attackIndividual,attackEffort,attackLevel)
-    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin)
+    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin,adjustAbove,adjustUnder)
   });
   
   attackIndividual.addEventListener("change", () => {
     attack_status_calculation(jsresponse,attackPersonality,kind,attackLetter,attackStatus,attackIndividual,attackEffort,attackLevel)
-    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin)
+    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin,adjustAbove,adjustUnder)
   });
   
   attackEffort.addEventListener("change", () => {
     attack_status_calculation(jsresponse,attackPersonality,kind,attackLetter,attackStatus,attackIndividual,attackEffort,attackLevel)
-    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin)
+    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin,adjustAbove,adjustUnder)
   });
   
   attackPersonality.forEach(function(list) {
     list.addEventListener("change", () => {
       attack_status_calculation(jsresponse,attackPersonality,kind,attackLetter,attackStatus,attackIndividual,attackEffort,attackLevel)
-      damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin)
+      damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin,adjustAbove,adjustUnder)
+      
     });
   })
-
-  
+  attackPersonalityCheckBlock.forEach(function(list) {
+    list.addEventListener("click", () => {
+      attackPersonalityCheckBlock.forEach(function(item) {
+        item.setAttribute("style", "background-color: gainsboro")
+      })
+      list.setAttribute("style", "background-color: white")
+    })
+  })
   
   attackStatus.addEventListener("change", () => {
-    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin)
+    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin,adjustAbove,adjustUnder)
   });
 
   attackCharacteristic.addEventListener("change", () => {
-    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin)
+    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin,adjustAbove,adjustUnder)
   });
 
   attackTool.addEventListener("change", () => {
-    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin)
+    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin,adjustAbove,adjustUnder)
   });
 
   attackTechniqueName.addEventListener("change", () => {
     technique_choice(jsresponse,attackTechniqueName,attackPower,attackType,attackKindPhysics,attackKindSpecial,kind)
     attack_status_calculation(jsresponse,attackPersonality,kind,attackLetter,attackStatus,attackIndividual,attackEffort,attackLevel)
     defense_defense_status_calculation(jsresponse,defensePersonality,kind,defenseLetter,defenseDefenseStatus,defenseDefenseIndividual,defenseDefenseEffort,defenseLevel)
-    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin)
+    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin,adjustAbove,adjustUnder)
   });
 
   kind.forEach(function(list) {
     list.addEventListener("change", () => {
       attack_status_calculation(jsresponse,attackPersonality,kind,attackLetter,attackStatus,attackIndividual,attackEffort,attackLevel)
       defense_defense_status_calculation(jsresponse,defensePersonality,kind,defenseLetter,defenseDefenseStatus,defenseDefenseIndividual,defenseDefenseEffort,defenseLevel)
-      damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin)
+      damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin,adjustAbove,adjustUnder)
     });
+  })
+  kindCheckBlock.forEach(function(list) {
+    list.addEventListener("click", () => {
+      kindCheckBlock.forEach(function(item) {
+        item.setAttribute("style", "background-color: gainsboro")
+      })
+      list.setAttribute("style", "background-color: white")
+    })
   })
 
   attackPower.addEventListener("change", () => {
-    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin)
+    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin,adjustAbove,adjustUnder)
   });
 
   attackType.addEventListener("change", () => {
-    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin)
+    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin,adjustAbove,adjustUnder)
   });
 
   attackBurn.addEventListener("change", () => {
-    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin)
+    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin,adjustAbove,adjustUnder)
   });
+
+  burnCheckImage.addEventListener("click", () => {
+    if (burnCheckImage.getAttribute("style") == "opacity: 1.0;") {
+      burnCheckImage.removeAttribute("style", "opacity: 1.0;")
+    } else {
+      burnCheckImage.setAttribute("style", "opacity: 1.0;")
+    }
+  })
 
   defensePokemonName.addEventListener("change", () => {
     console.log("え")
@@ -783,6 +880,17 @@ function calculation (){
       jsresponse.defense_pokemon_type.forEach( function(element){
         defense_pokemon_type.push(element.attributes.name)
       })
+      defenseStatusNumber.innerHTML = `H${jsresponse.defense_pokemon.H} A${jsresponse.defense_pokemon.A} B${jsresponse.defense_pokemon.B} C${jsresponse.defense_pokemon.C} D${jsresponse.defense_pokemon.D} S${jsresponse.defense_pokemon.S}`
+      defenseType1.innerHTML= ""
+      defenseType1.setAttribute("style", "background-color: transparent")
+      defenseType2.innerHTML= ""
+      defenseType2.setAttribute("style", "background-color: transparent")
+      defenseType1.innerHTML = defense_pokemon_type[0]
+      type_background(defenseType1)
+      if (defense_pokemon_type[1]){
+        defenseType2.innerHTML = defense_pokemon_type[1]
+        type_background(defenseType2)
+      }
       while (defenseCharacteristic.firstChild) {
         defenseCharacteristic.removeChild(defenseCharacteristic.firstChild);
       }
@@ -791,87 +899,139 @@ function calculation (){
         option1.textContent = element.attributes.name;
         defenseCharacteristic.appendChild(option1);
       })
-      defense_physical_status_calculation(jsresponse,defensePhysicalStatus,defensePhysicalIndividual,defensePhysicalEffort,defenseLevel)
+      defenseSidePokemon.innerHTML = jsresponse.defense_pokemon.name
+      
+      defense_physical_status_calculation(jsresponse,defensePhysicalStatus,defensePhysicalIndividual,defensePhysicalEffort,defenseLevel,physicalNumber)
+      
       defense_defense_status_calculation(jsresponse,defensePersonality,kind,defenseLetter,defenseDefenseStatus,defenseDefenseIndividual,defenseDefenseEffort,defenseLevel)
       if (jsresponse.attack_pokemon !== ""){
-        damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin)
+        damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin,adjustAbove,adjustUnder)
       }
     };
   });
   
   defenseLevel.addEventListener("change", () => {
-    defense_physical_status_calculation(jsresponse,defensePhysicalStatus,defensePhysicalIndividual,defensePhysicalEffort,defenseLevel)
+    defense_physical_status_calculation(jsresponse,defensePhysicalStatus,defensePhysicalIndividual,defensePhysicalEffort,defenseLevel,physicalNumber)
     defense_defense_status_calculation(jsresponse,defensePersonality,kind,defenseLetter,defenseDefenseStatus,defenseDefenseIndividual,defenseDefenseEffort,defenseLevel)
-    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin)
+    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin,adjustAbove,adjustUnder)
   });
   
   defensePhysicalIndividual.addEventListener("change", () => {
-    defense_physical_status_calculation(jsresponse,defensePhysicalStatus,defensePhysicalIndividual,defensePhysicalEffort,defenseLevel)
-    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin)
+    defense_physical_status_calculation(jsresponse,defensePhysicalStatus,defensePhysicalIndividual,defensePhysicalEffort,defenseLevel,physicalNumber)
+    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin,adjustAbove,adjustUnder)
   });
   
   defensePhysicalEffort.addEventListener("change", () => {
-    defense_physical_status_calculation(jsresponse,defensePhysicalStatus,defensePhysicalIndividual,defensePhysicalEffort,defenseLevel)
-    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin)
+    defense_physical_status_calculation(jsresponse,defensePhysicalStatus,defensePhysicalIndividual,defensePhysicalEffort,defenseLevel,physicalNumber)
+    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin,adjustAbove,adjustUnder)
   });
   
   defenseDefenseIndividual.addEventListener("change", () => {
     defense_defense_status_calculation(jsresponse,defensePersonality,kind,defenseLetter,defenseDefenseStatus,defenseDefenseIndividual,defenseDefenseEffort,defenseLevel)
-    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin)
+    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin,adjustAbove,adjustUnder)
   });
   
   defenseDefenseEffort.addEventListener("change", () => {
     defense_defense_status_calculation(jsresponse,defensePersonality,kind,defenseLetter,defenseDefenseStatus,defenseDefenseIndividual,defenseDefenseEffort,defenseLevel)
-    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin)
+    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin,adjustAbove,adjustUnder)
   });
 
   defensePersonality.forEach(function(list) {
     list.addEventListener("change", () => {
       defense_defense_status_calculation(jsresponse,defensePersonality,kind,defenseLetter,defenseDefenseStatus,defenseDefenseIndividual,defenseDefenseEffort,defenseLevel)
-      damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin)
+      damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin,adjustAbove,adjustUnder)
     });
   })
 
+  defensePersonalityCheckBlock.forEach(function(list) {
+    list.addEventListener("click", () => {
+      defensePersonalityCheckBlock.forEach(function(item) {
+        item.setAttribute("style", "background-color: gainsboro")
+      })
+      list.setAttribute("style", "background-color: white")
+    })
+  })
+
   defensePhysicalStatus.addEventListener("change", () => {
-    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin)
+    physicalNumber.innerHTML = `HP${defensePhysicalStatus.value}`
+    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin,adjustAbove,adjustUnder)
+    
   });
 
   defenseDefenseStatus.addEventListener("change", () => {
-    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin)
+    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin,adjustAbove,adjustUnder)
   });
 
   defenseCharacteristic.addEventListener("change", () => {
-    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin)
+    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin,adjustAbove,adjustUnder)
   });
 
   defenseTool.addEventListener("change", () => {
-    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin)
+    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin,adjustAbove,adjustUnder)
   });
 
   defenseReflector.addEventListener("change", () => {
-    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin)
+    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin,adjustAbove,adjustUnder)
   });
 
+  reflectorCheckImage.addEventListener("click", () => {
+    if (reflectorCheckImage.getAttribute("style") == "opacity: 1.0;") {
+      reflectorCheckImage.removeAttribute("style", "opacity: 1.0;")
+    } else {
+      reflectorCheckImage.setAttribute("style", "opacity: 1.0;")
+    }
+  })
+
   defenseHikari.addEventListener("change", () => {
-    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin)
+    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin,adjustAbove,adjustUnder)
   });
+
+  hikariCheckImage.addEventListener("click", () => {
+    if (hikariCheckImage.getAttribute("style") == "opacity: 1.0;") {
+      hikariCheckImage.removeAttribute("style", "opacity: 1.0;")
+    } else {
+      hikariCheckImage.setAttribute("style", "opacity: 1.0;")
+    }
+  })
 
   wetherContent.forEach(function(list) {
     list.addEventListener("change", () => {
-      damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin)
+      damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin,adjustAbove,adjustUnder)
     });
+  })
+  wetherCheckBlock.forEach(function(list) {
+    list.addEventListener("click", () => {
+      wetherCheckBlock.forEach(function(item) {
+        item.setAttribute("style", "background-color: gainsboro")
+      })
+      list.setAttribute("style", "background-color: white")
+    })
   })
 
   fieldContent.forEach(function(list) {
     list.addEventListener("change", () => {
-      damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin)
+      damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin,adjustAbove,adjustUnder)
     });
+  })
+  fieldCheckBlock.forEach(function(list) {
+    list.addEventListener("click", () => {
+      fieldCheckBlock.forEach(function(item) {
+        item.setAttribute("style", "background-color: gainsboro")
+      })
+      list.setAttribute("style", "background-color: white")
+    })
   })
 
   gravity.addEventListener("change", () => {
-    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin)
+    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin,adjustAbove,adjustUnder)
   });
-  
+  gravityCheckImage.addEventListener("click", () => {
+    if (gravityCheckImage.getAttribute("style") == "opacity: 1.0;") {
+      gravityCheckImage.removeAttribute("style", "opacity: 1.0;")
+    } else {
+      gravityCheckImage.setAttribute("style", "opacity: 1.0;")
+    }
+  })
 
 
   attackRankRise.addEventListener("click", () => {
@@ -885,7 +1045,7 @@ function calculation (){
         attackRankFormLabel.innerHTML = `-${attackRankForm.value}`
       }
     }
-    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin)
+    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin,adjustAbove,adjustUnder)
   })
   attackRankDown.addEventListener("click", () => {
     if(parseFloat(attackRankForm.value) > -6){
@@ -898,7 +1058,7 @@ function calculation (){
         attackRankFormLabel.innerHTML = `-${attackRankForm.value}`
       }
     }
-    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin)
+    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin,adjustAbove,adjustUnder)
   })
   defenseRankRise.addEventListener("click", () => {
     if(parseFloat(defenseRankForm.value) < 6){
@@ -911,7 +1071,7 @@ function calculation (){
         defenseRankFormLabel.innerHTML = `-${defenseRankForm.value}`
       }
     }
-    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin)
+    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin,adjustAbove,adjustUnder)
   })
   defenseRankDown.addEventListener("click", () => {
     if(parseFloat(defenseRankForm.value) > -6){
@@ -924,7 +1084,7 @@ function calculation (){
         defenseRankFormLabel.innerHTML = `-${defenseRankForm.value}`
       }
     }
-    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin)
+    damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin,adjustAbove,adjustUnder)
   })
 };
 /*
