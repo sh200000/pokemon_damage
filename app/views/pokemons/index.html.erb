@@ -69,8 +69,8 @@
               <%#<input type="text" value="0" class="rank_form" id="attack_rank_form">%>
               <%= form.text_field :attack_pokemon_rank, value:"0", id: "attack_rank_form", class:"rank_form" %>
               <label for="attack_rank_form" class="rank_number" id="attack_rank_form_label">±0</label>
-              <div class="rank_rise" id="attack_rank_rise"><img src="/assets/attack_rise.png" alt="サンプル画像です" class="attack_rise_image"></div>
-              <div class="rank_down" id="attack_rank_down"><img src="/assets/attack_down.png" alt="サンプル画像です" class="attack_down_image"></div>
+              <div class="rank_rise" id="attack_rank_rise"><%= image_tag "attack_rise.png", class:"attack_rise_image" %></div>
+              <div class="rank_down" id="attack_rank_down"><%= image_tag "attack_down.png", class:"attack_down_image" %></div>
             </div>
           </div>
           <div class="status4">
@@ -110,7 +110,7 @@
           <div class="status8">
             <%#<input type="checkbox" name="burn" value="0.5" id="attack_burn">%>
             <%= form.check_box :attack_burn,{} ,"あり","なし" %>
-            <label for="attack_burn" id="burn_check_image"><img src="/assets/monsterball.png" alt="サンプル画像です" class="monsterball_image"></label>
+            <label for="attack_burn" id="burn_check_image"><%= image_tag "monsterball.png", class:"monsterball_image" %></label>
             <%#<%= form.label :attack_burn, "やけど", class:"check_image" %>
             <div class="condition">やけど</div>
           </div>
@@ -202,8 +202,8 @@
               <%#<input type="text" value="0" class="rank_form" id="defense_rank_form">%>
               <%= form.text_field :defense_pokemon_rank, value:"0", id: "defense_rank_form", class:"rank_form" %>
               <label for="defense_rank_form" class="rank_number" id="defense_rank_form_label">±0</label>
-              <div class="rank_rise" id="defense_rank_rise"><img src="/assets/defense_rise.png" alt="サンプル画像です" class="defense_rise_image"></div>
-              <div class="rank_down" id="defense_rank_down"><img src="/assets/defense_down.png" alt="サンプル画像です" class="defense_down_image"></div>
+              <div class="rank_rise" id="defense_rank_rise"><%= image_tag "defense_rise.png", class:"defense_rise_image" %></div>
+              <div class="rank_down" id="defense_rank_down"><%= image_tag "defense_down.png", class:"defense_down_image" %></div>
             </div>
           </div>
           <div class="status13">
@@ -224,11 +224,11 @@
           <div class="status15">
             <%#<input type="checkbox" name="burn" value="0.5" id="defense_reflector">%>
             <%= form.check_box :defense_reflector,{}, "あり","なし" %>
-            <label for="defense_reflector" id="reflector_check_image"><img src="/assets/monsterball.png" alt="サンプル画像です" class="monsterball_image"></label>
+            <label for="defense_reflector" id="reflector_check_image"><%= image_tag "monsterball.png", class:"monsterball_image" %></label>
             <div class="condition">リフレクター</div>
             <%#<input type="checkbox" name="burn" value="0.5" id="defense_hikari">%>
             <%= form.check_box :defense_hikari,{}, "あり","なし" %>
-            <label for="defense_hikari" id="hikari_check_image"><img src="/assets/monsterball.png" alt="サンプル画像です" class="monsterball_image"></label>
+            <label for="defense_hikari" id="hikari_check_image"><%= image_tag "monsterball.png", class:"monsterball_image" %></label>
             <div class="condition">ひかりのかべ</div>
           </div>
         </div>
@@ -289,7 +289,7 @@
       <div class="gravity_wrapper">
         <%#<input type="checkbox" name="gravity" value="0.7" id="gravity">%>
         <%= form.check_box :gravity,{},"あり","なし" %>
-        <label for="gravity" id="gravity_check_image"><img src="/assets/monsterball.png" alt="サンプル画像です" class="monsterball_image"></label>
+        <label for="gravity" id="gravity_check_image"><%= image_tag "monsterball.png", class:"monsterball_image" %></label>
         <div class="gravity">じゅうりょく</div>
       </div>
     </div>
