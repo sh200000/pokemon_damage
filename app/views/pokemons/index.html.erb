@@ -11,7 +11,6 @@
               <div class="name">名前</div>
               <div class="name_wrapper">
                 <div class="status_number" id="attack_status_number">H A B C D S</div>
-                <%#<input type="text" placeholder="ポケモン名を入力してください" name="pokemon_name" class="name_form" id="attack_pokemon_name">%>
                 <%= form.text_field :attack_pokemon_name, id: "attack_pokemon_name", placeholder:"ポケモン名を入力してください", class:"name_form" %>
                 <div class="search"></div>
               </div>
@@ -24,24 +23,20 @@
             </div>
             <div class="status1_right">
               <div class="level">Lv</div>
-              <%#<input type="number" value="50" class="level_form" id="attack_level">%>
               <%= form.number_field :attack_pokemon_level, id: "attack_level", value:"50", class:"level_form" %>
             </div>
           </div>
           <div class="status2">
             <div class="attack_wrapper">
               <div class="attack" id="attack_letter">攻撃</div>
-              <%#<input type="number" placeholder="150" class="attack_form" id="attack_status">%>
               <%= form.number_field :attack_pokemon_status, id: "attack_status", class:"attack_form" %>
             </div>
             <div class="individual_wrapper"> 
               <div class="individual">個体値</div>
-              <%#<input type="text" value="31" class="individual_form" id="attack_individual">%>
               <%= form.number_field :attack_pokemon_individual, id: "attack_individual", value:"31", class:"individual_form" %>
             </div>
             <div class="effort_wrapper">
               <div class="effort">努力値</div>
-              <%#<input type="text" value="252" class="effort_form" id="attack_effort">%>
               <%= form.number_field :attack_pokemon_effort, id: "attack_effort", value:"252", class:"effort_form" %>
             </div>
           </div>
@@ -49,24 +44,17 @@
           <div class="status3">
             <div class="personality_wrapper">
               <div class="personality">性格</div>
-              <%#<input type="radio" name="personality" value="0.9" class="attack_personality" id="attack_personality_down">%>
               <%= form.radio_button :attack_personality, "0.9",{class:"attack_personality"} %>
-              <%#<label for="attack_personality_down">0.9</label>%>
               <%= form.label :attack_personality, "0.9", value: 0.9,class:"attack_personality_check_block" %>
-              <%#<input type="radio" name="personality" value="1.0" class="attack_personality" id="attack_personality_same"  checked>%>
               <%= form.radio_button :attack_personality, "1.0", {class:"attack_personality", checked: true} %>
-              <%#<label for="attack_personality_same">1.0</label>%>
               <%= form.label :attack_personality, "1.0", value: 1.0,class:"attack_personality_check_block" %>
-              <%#<input type="radio" name="personality" value="1.1" class="attack_personality" id="attack_personality_rise">%>
               <%= form.radio_button :attack_personality, "1.1", {class:"attack_personality"} %>
-              <%#<label for="attack_personality_rise">1.1</label>%>
               <%= form.label :attack_personality, "1.1", value: 1.1,class:"attack_personality_check_block" %>
 
             </div>
 
             <div class="rank_wrapper">
               <div class="rank">ランク</div>
-              <%#<input type="text" value="0" class="rank_form" id="attack_rank_form">%>
               <%= form.text_field :attack_pokemon_rank, value:"0", id: "attack_rank_form", class:"rank_form" %>
               <label for="attack_rank_form" class="rank_number" id="attack_rank_form_label">±0</label>
               <div class="rank_rise" id="attack_rank_rise"><%= image_tag "attack_rise.png", class:"attack_rise_image" %></div>
@@ -75,49 +63,36 @@
           </div>
           <div class="status4">
             <div class="characteristic">とくせい</div>
-            <%#<input type="text" placeholder="せいでんき" class="characteristic_form" id="attack_characteristic">%>
-            <%#<%= form.text_field :attack_pokemon_characteristic, id: "attack_characteristic", class:"characteristic_form" %>
             <select name="attack_pokemon_characteristic" id="attack_characteristic" class="characteristic_form">
             </select>
           </div>
           <div class="status5">
             <div class="tool">道具</div>
-            <%#<input type="text" placeholder="こだわりハチマキ" class="tool_form" id="attack_tool">%>
-            <%#<%= form.text_field :attack_pokemon_tool, id: "attack_tool", class:"tool_form" %>
             <%= form.collection_select(:attack_pokemon_tool, AttackTool.all, :name, :name, {}, {class:"tool_form", id:"attack_tool"}) %>
           </div>
           <div class="status6">
             <div class="technique">技名</div>
-            <%#<input type="text" placeholder="10まんボルト" class="technique_form">%>
-            <%#<%= form.text_field :attack_technique_name, id: "attack_technique_name", class:"technique_form" %>
             <select name="attack_technique_name" id="attack_technique_name" class="technique_form">
             </select>
             <%= form.radio_button :kind, "ぶつり", {class:"kind",id:"kind_physics", checked: true} %>
-            <%#<%= form.label :kind, "ぶつり", value: "ぶつり" %>
-            <label for="kind_physics" class="kind_check_block">ぶつり</label>
+            <label for="kind_physics" id="kind_check_block_physics">ぶつり</label>
             <%= form.radio_button :kind, "とくしゅ", {class:"kind",id:"kind_special"} %>
-            <%#<%= form.label :kind, "とくしゅ", value: "とくしゅ" %>
-            <label for="kind_special" class="kind_check_block" id="kind_special_label">とくしゅ</label>
+            <label for="kind_special" id="kind_check_block_special" >とくしゅ</label>
           </div>
           <div class="status7">
             <div class="power">威力</div>
-            <%#<input type="number" placeholder="90" class="power_form" id="attack_power">%>
             <%= form.number_field :attack_technique_power, id: "attack_power", class:"power_form" %>
             <div class="technique_type">タイプ</div>
-            <%#<input type="text" placeholder="でんき" class="technique_type_form" id="attack_type">%>
             <%= form.text_field :attack_technique_type, id: "attack_type", class:"technique_type_form" %>
           </div>
           <div class="status8">
-            <%#<input type="checkbox" name="burn" value="0.5" id="attack_burn">%>
             <%= form.check_box :attack_burn,{} ,"あり","なし" %>
             <label for="attack_burn" id="burn_check_image"><%= image_tag "monsterball.png", class:"monsterball_image" %></label>
-            <%#<%= form.label :attack_burn, "やけど", class:"check_image" %>
             <div class="condition">やけど</div>
           </div>
         </div>
       </div>
 
-      <%#<form class="defense_side_form">%>
 
       <div class="defense_side_form">
         <div class="defense_side_bar"></div>
@@ -128,7 +103,6 @@
               <div class="name">名前</div>
               <div class="name_wrapper">
                 <div class="status_number" id="defense_status_number">H A B C D S</div>
-                <%#<input type="text" placeholder="ポケモン名を入力してください" class="name_form" id="defense_pokemon_name">%>
                 <%= form.text_field :defense_pokemon_name, id: "defense_pokemon_name", placeholder:"ポケモン名を入力してください", class:"name_form" %>
               </div>
 
@@ -140,41 +114,34 @@
             </div>
             <div class="status9_right">
               <div class="level">Lv</div>
-              <%#<input type="number" value="50" class="level_form" id="defense_level">%>
               <%= form.number_field :defense_pokemon_level, id: "defense_level", value:"50", class:"level_form" %>
             </div>
           </div>
           <div class="status10">
             <div class="physical_wrapper">
               <div class="physical">HP</div>
-              <%#<input type="number" placeholder="160" class="physical_form" id="defense_physical_status">%>
               <%= form.number_field :defense_physical_status, id: "defense_physical_status", class:"physical_form" %>
             </div>
             <div class="individual_wrapper"> 
               <div class="individual">個体値</div>
-              <%#<input type="number" value="31" class="individual_form" id="defense_physical_individual">%>
               <%= form.number_field :defense_physical_individual, value:"31", id: "defense_physical_individual", class:"individual_form" %>
             </div>
             <div class="effort_wrapper">
               <div class="effort">努力値</div>
-              <%#<input type="number" value="252" class="effort_form" id="defense_physical_effort">%>
               <%= form.number_field :defense_physical_effort, value:"252", id: "defense_physical_effort", class:"effort_form" %>
             </div>
           </div>
           <div class="status11">
             <div class="defense_wrapper">
               <div class="defense" id="defense_letter">防御</div>
-              <%#<input type="number" placeholder="160" class="defense_form" id="defense_defense_status">%>
               <%= form.number_field :defense_defense_status, id: "defense_defense_status", class:"defense_form" %>
             </div>
             <div class="individual_wrapper"> 
               <div class="individual">個体値</div>
-              <%#<input type="number" value="31" class="individual_form" id="defense_defense_individual">%>
               <%= form.number_field :defense_defense_individual, value:"31", id: "defense_defense_individual", class:"individual_form" %>
             </div>
             <div class="effort_wrapper">
               <div class="effort">努力値</div>
-              <%#<input type="number" value="252" class="effort_form" id="defense_defense_effort">%>
               <%= form.number_field :defense_defense_effort, value:"252", id: "defense_defense_effort", class:"effort_form" %>
             </div>
           </div>
@@ -182,24 +149,17 @@
             <div class="personality_wrapper">
               <div class="personality">性格</div>
 
-              <%#<input type="radio" name="personality" value="0.9" class="defense_personality" id="defense_personality_down">%>
               <%= form.radio_button :defense_personality, "0.9", {class:"defense_personality"} %>
-              <%#<label for="defense_personality_down">0.9</label>%>
               <%= form.label :defense_personality, "0.9", value: 0.9,class:"defense_personality_check_block" %>
-              <%#<input type="radio" name="personality" value="1.0" class="defense_personality" id="defense_personality_same"  checked>%>
               <%= form.radio_button :defense_personality, "1.0", {class:"defense_personality", checked: true} %>
-              <%#<label for="defense_personality_same">1.0</label>%>
               <%= form.label :defense_personality, "1.0", value: 1.0,class:"defense_personality_check_block" %>
-              <%#<input type="radio" name="personality" value="1.1" class="defense_personality" id="defense_personality_rise">%>
               <%= form.radio_button :defense_personality, "1.1", {class:"defense_personality"} %>
-              <%#<label for="defense_personality_rise">1.1</label>%>
               <%= form.label :defense_personality, "1.1", value: 1.1,class:"defense_personality_check_block" %>
 
             </div>
 
             <div class="rank_wrapper">
               <div class="rank">ランク</div>
-              <%#<input type="text" value="0" class="rank_form" id="defense_rank_form">%>
               <%= form.text_field :defense_pokemon_rank, value:"0", id: "defense_rank_form", class:"rank_form" %>
               <label for="defense_rank_form" class="rank_number" id="defense_rank_form_label">±0</label>
               <div class="rank_rise" id="defense_rank_rise"><%= image_tag "defense_rise.png", class:"defense_rise_image" %></div>
@@ -208,31 +168,24 @@
           </div>
           <div class="status13">
             <div class="characteristic">とくせい</div>
-            <%#<input type="text" placeholder="ものひろい" class="characteristic_form" id="defense_characteristic">%>
-            <%#<%= form.text_field :defense_pokemon_characteristic, id: "defense_characteristic", class:"characteristic_form" %>
             <select name="defense_pokemon_characteristic" id="defense_characteristic"  class="characteristic_form">
             </select>
           </div>
           <div class="status14">
             <div class="tool">道具</div>
-            <%#<input type="text" placeholder="とつげきチョッキ" class="tool_form" id="defense_tool">%>
-            <%#<%= form.text_field :defense_pokemon_tool, id: "defense_tool", class:"tool_form" %>
             <%= form.collection_select(:defense_pokemon_tool, DefensiveTool.all, :name, :name, {}, {class:"tool_form", id:"defense_tool"}) %>
           </div>
           <div class="status15"></div>
           <div class="status15"></div>
           <div class="status15">
-            <%#<input type="checkbox" name="burn" value="0.5" id="defense_reflector">%>
             <%= form.check_box :defense_reflector,{}, "あり","なし" %>
             <label for="defense_reflector" id="reflector_check_image"><%= image_tag "monsterball.png", class:"monsterball_image" %></label>
             <div class="condition">リフレクター</div>
-            <%#<input type="checkbox" name="burn" value="0.5" id="defense_hikari">%>
             <%= form.check_box :defense_hikari,{}, "あり","なし" %>
             <label for="defense_hikari" id="hikari_check_image"><%= image_tag "monsterball.png", class:"monsterball_image" %></label>
             <div class="condition">ひかりのかべ</div>
           </div>
         </div>
-      <%#</form>%>
       </div>
     </div>
     <div class="environment_title">環境</div>
@@ -241,53 +194,32 @@
       <div class="wether_wrapper"> 
         <div class="wether">天候</div>
 
-        <%#<input type="radio" name="wether" value="なし" class="wether_content" id="wether_none" checked>%>
         <%= form.radio_button :wether, "なし", {class:"wether_content", checked: true} %>
-        <%#<label for="wether_none" class="check_block">なし</label>%>
         <%= form.label :wether, "なし", value: "なし", class:"wether_check_block" %>
-        <%#<input type="radio" name="wether" value="あめ" class="wether_content" id="wether_rain">%>
         <%= form.radio_button :wether, "あめ", {class:"wether_content"} %>
-        <%#<label for="wether_rain" class="check_block">あめ</label>%>
         <%= form.label :wether, "あめ", value: "あめ", class:"wether_check_block" %>
-        <%#<input type="radio" name="wether" value="はれ" class="wether_content" id="wether_sunny">%>
         <%= form.radio_button :wether, "はれ", {class:"wether_content"} %>
-        <%#<label for="wether_sunny" class="check_block">はれ</label>%>
         <%= form.label :wether, "はれ", value: "はれ", class:"wether_check_block" %>
-        <%#<input type="radio" name="wether" value="すな" class="wether_content" id="wether_sand">%>
         <%= form.radio_button :wether, "すな", {class:"wether_content"} %>
-        <%#<label for="wether_sand" class="check_block">すな</label>%>
         <%= form.label :wether, "すな", value: "すな", class:"wether_check_block" %>
-        <%#<input type="radio" name="wether" value="あられ" class="wether_content" id="wether_ice">%>
         <%= form.radio_button :wether, "あられ", {class:"wether_content"} %>
-        <%#<label for="wether_ice" class="check_block">あられ</label>%>
         <%= form.label :wether, "あられ", value: "あられ", class:"wether_check_block" %>
       </div>
       <div class="field_wrapper">
         <div class="field">フィールド</div>
 
-        <%#<input type="radio" name="field" value="なし" class="field_content" id="field_none" checked>%>
         <%= form.radio_button :field, "なし", {class:"field_content", checked: true} %>
-        <%#<label for="field_none" class="check_block">なし</label>%>
         <%= form.label :field, "なし", value: "なし", class:"field_check_block" %>
-        <%#<input type="radio" name="field" value="エレキ" class="field_content" id="field_electric">%>
         <%= form.radio_button :field, "エレキ", {class:"field_content"} %>
-        <%#<label for="field_electric" class="check_block">エレキ</label>%>
         <%= form.label :field, "エレキ", value: "エレキ", class:"field_check_block" %>
-        <%#<input type="radio" name="field" value="グラス" class="field_content" id="field_grass">%>
         <%= form.radio_button :field, "グラス", {class:"field_content"} %>
-        <%#<label for="field_grass" class="check_block">グラス</label>%>
         <%= form.label :field, "グラス", value: "グラス", class:"field_check_block" %>
-        <%#<input type="radio" name="field" value="サイコ" class="field_content" id="field_psycho">%>
         <%= form.radio_button :field, "サイコ", {class:"field_content"} %>
-        <%#<label for="field_psycho" class="check_block">サイコ</label>%>
         <%= form.label :field, "サイコ", value: "サイコ", class:"field_check_block" %>
-        <%#<input type="radio" name="field" value="ミスト" class="field_content" id="field_mist">%>
         <%= form.radio_button :field, "ミスト", {class:"field_content"} %>
-        <%#<label for="field_mist" class="check_block">ミスト</label>%>
         <%= form.label :field, "ミスト", value: "ミスト", class:"field_check_block" %>
       </div>
       <div class="gravity_wrapper">
-        <%#<input type="checkbox" name="gravity" value="0.7" id="gravity">%>
         <%= form.check_box :gravity,{},"あり","なし" %>
         <label for="gravity" id="gravity_check_image"><%= image_tag "monsterball.png", class:"monsterball_image" %></label>
         <div class="gravity">じゅうりょく</div>

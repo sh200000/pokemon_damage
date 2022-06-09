@@ -24,22 +24,6 @@ const damage_calculation = (attack_level,technique_power,attack_status,defense_s
   field,technique_type,technique,attack_rank,attack_pokemon_type,attack_pokemon_tool,attack_pokemon_characteristic,kind,
   wether,defense_rank,defense_pokemon_type,defense_pokemon_tool,defense_pokemon_characteristic,burn,reflector,hikari) => {
 
-  console.log(field)
-  console.log(technique_type)
-  console.log(technique)
-  console.log(attack_rank)
-  console.log(attack_pokemon_type)
-  console.log(attack_pokemon_tool)
-  console.log(attack_pokemon_characteristic)
-  console.log(kind)
-  console.log(wether)
-  console.log(defense_rank)
-  console.log(defense_pokemon_type)
-  console.log(defense_pokemon_tool)
-  console.log(defense_pokemon_characteristic)
-  console.log(burn)
-  console.log(reflector)
-  console.log(hikari)
   
   attack_levelN = parseFloat(attack_level)
   technique_powerN = parseFloat(technique_power)
@@ -61,10 +45,21 @@ const damage_calculation = (attack_level,technique_power,attack_status,defense_s
   burn_hosei = 1.0
   damage_hosei = 1.0
 
-  if(field == "エレキ" && technique_type == "でんき" || field == "グラス" && technique_type == "くさ" || field == "サイコ" && technique_type == "エスパー" || field == "ミスト" && technique_type == "フェアリー"){
-    power_hosei = 5325 / 4096
-  }else if((field == "グラス" && (technique == "じしん" || technique == "じならし")) || (field == "ミスト" && technique_type == "ドラゴン")){
-    power_hosei = 0.5
+  
+  if(attack_pokemon_type[0] != "ひこう" && attack_pokemon_type[1] != "ひこう" && attack_pokemon_characteristic != "ふゆう" && (field == "エレキ" && technique_type == "でんき" || field == "グラス" && technique_type == "くさ" || field == "サイコ" && technique_type == "エスパー")){
+    power_hosei = power_hosei * 5325 / 4096
+  }else if(defense_pokemon_type[0] != "ひこう" && defense_pokemon_type[1] != "ひこう" && defense_pokemon_characteristic != "ふゆう" && ((field == "グラス" && (technique == "じしん" || technique == "じならし")) || (field == "ミスト" && technique_type == "ドラゴン"))){
+    power_hosei = power_hosei * 0.5
+  }
+
+  if(kind == "とくしゅ" && attack_pokemon_tool == "ものしりメガネ"){
+    power_hosei = power_hosei * 4505 / 4096
+  } else if(kind == "ぶつり" && attack_pokemon_tool == "ちからのハチマキ"){
+    power_hosei = power_hosei * 4505 / 4096
+  }
+
+  if(attack_pokemon_tool == "タイプ強化系"){
+    power_hosei = power_hosei * 4915 / 4096
   }
 
   if(attack_rankN >= 0){
@@ -96,9 +91,9 @@ const damage_calculation = (attack_level,technique_power,attack_status,defense_s
   if(kind == "とくしゅ" && wether == "すな" && (defense_pokemon_type[0] == "いわ" || defense_pokemon_type[1] == "いわ")){
     sunahosei = 1.5
   }
-
+  
   if(kind == "とくしゅ" && defense_pokemon_tool == "とつげきチョッキ"){
-    defense_status_hosei == 1.5
+    defense_status_hosei = 1.5
   }
 
   if((wether == "はれ" && technique_type == "ほのお") || (wether == "あめ" && technique_type == "みず")){
@@ -109,6 +104,23 @@ const damage_calculation = (attack_level,technique_power,attack_status,defense_s
 
   if(kind == "ぶつり" && burn == "あり"){
     burn_hosei = 0.5
+  }
+
+  if((reflector == "あり" && kind == "ぶつり") || (hikari == "あり" && kind == "とくしゅ")){
+    damage_hosei = damage_hosei * 0.5
+  }
+  if(attack_pokemon_tool == "いのちのたま"){
+    damage_hosei = damage_hosei * 5324 / 4096
+  }
+  if((type_comp == 2 || type_comp == 4) && attack_pokemon_tool == "たつじんのおび"){
+    damage_hosei = damage_hosei * 4915 / 4096
+  }
+  if((type_comp == 2 || type_comp == 4) && defense_pokemon_tool == "半減きのみ"){
+    damage_hosei = damage_hosei * 0.5
+  }
+
+  if(defense_pokemon_characteristic == "ふゆう" && technique_type == "じめん"){
+    damage_hosei = damage_hosei * 0
   }
 
   defense_pokemon_type.forEach(function(type){
@@ -260,22 +272,21 @@ const damage_calculation = (attack_level,technique_power,attack_status,defense_s
         type_comp = type_comp * 0.5
       }
     }
-
-    if((reflector == "あり" && kind == "ぶつり") || (hikari == "あり" && kind == "とくしゅ")){
-      damage_hosei = damage_hosei * 0.5
-    }
-    if(attack_pokemon_tool == "いのちのたま"){
-      damage_hosei = damage_hosei * 5324 / 4096
-    }
-    if((type_comp == 2 || type_comp == 4) && attack_pokemon_tool == "たつじんのおび"){
-      damage_hosei = damage_hosei * 4915 / 4096
-    }
-    if((type_comp == 2 || type_comp == 4) && defense_pokemon_tool == "半減きのみ"){
-      damage_hosei = damage_hosei * 0.5
-    }
   })
   
-
+  console.log(power_hosei)
+  console.log(attack_rank_hosei)
+  console.log(harikiri)
+  console.log(attack_status_hosei)
+  console.log(defense_rank_hosei)
+  console.log(sunahosei)
+  console.log(defense_status_hosei)
+  console.log(wether_hosei)
+  console.log(type_match)
+  console.log(type_comp)
+  console.log(burn_hosei)
+  console.log(damage_hosei)
+  
   final_power = gosyagotyounyuu(technique_powerN * power_hosei)
   final_attack_status = gosyagotyounyuu(Math.floor(Math.floor(attack_statusN * attack_rank_hosei) * harikiri) * attack_status_hosei)
   final_defense_status = gosyagotyounyuu(Math.floor(Math.floor(defense_statusN * defense_rank_hosei) * sunahosei) * defense_status_hosei)
@@ -367,12 +378,27 @@ const technique_choice =(jsresponse,attackTechniqueName,attackPower,attackType,a
     attackKindSpecial.checked = true
   }
   kind.forEach(function(list) {
+    console.log(list)
     if (list.checked){
       kindValue = list.value;
     }
   })
 }
 
+const kind_background =(kind,kindCheckBlockPhysics,kindCheckBlockSpecial) => {
+  kind.forEach(function(list) {
+    if (list.checked){
+      kindValue = list.value;
+    }
+  })
+  if (kindValue == "ぶつり"){
+    kindCheckBlockPhysics.setAttribute("style", "background-color: white")
+    kindCheckBlockSpecial.setAttribute("style", "background-color: gainsboro")
+  }else if (kindValue == "とくしゅ"){
+    kindCheckBlockPhysics.setAttribute("style", "background-color: gainsboro")
+    kindCheckBlockSpecial.setAttribute("style", "background-color: white")
+  }
+}
 
 const defense_physical_status_calculation =(jsresponse,defensePhysicalStatus,defensePhysicalIndividual,defensePhysicalEffort,defenseLevel,physicalNumber) => {
   console.log("お")
@@ -553,7 +579,8 @@ function calculation (){
       kindValue = list.value;
     }
   })
-  const kindCheckBlock = document.querySelectorAll(".kind_check_block");
+  const kindCheckBlockPhysics = document.getElementById("kind_check_block_physics");
+  const kindCheckBlockSpecial = document.getElementById("kind_check_block_special");
   const attackPower  = document.getElementById("attack_power");
   const attackType  = document.getElementById("attack_type");
   const attackBurn  = document.getElementById("attack_burn");
@@ -767,6 +794,7 @@ function calculation (){
       console.log(jsresponse)
       console.log(attackIndividual)
       technique_choice(jsresponse,attackTechniqueName,attackPower,attackType,attackKindPhysics,attackKindSpecial,kind)
+      kind_background(kind,kindCheckBlockPhysics,kindCheckBlockSpecial)
       attack_status_calculation(jsresponse,attackPersonality,kind,attackLetter,attackStatus,attackIndividual,attackEffort,attackLevel)
       console.log(jsresponse.defense_pokemon)
       if (jsresponse.defense_pokemon !== ""){
@@ -821,6 +849,7 @@ function calculation (){
 
   attackTechniqueName.addEventListener("change", () => {
     technique_choice(jsresponse,attackTechniqueName,attackPower,attackType,attackKindPhysics,attackKindSpecial,kind)
+    kind_background(kind,kindCheckBlockPhysics,kindCheckBlockSpecial)
     attack_status_calculation(jsresponse,attackPersonality,kind,attackLetter,attackStatus,attackIndividual,attackEffort,attackLevel)
     defense_defense_status_calculation(jsresponse,defensePersonality,kind,defenseLetter,defenseDefenseStatus,defenseDefenseIndividual,defenseDefenseEffort,defenseLevel)
     damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin,adjustAbove,adjustUnder)
@@ -828,18 +857,11 @@ function calculation (){
 
   kind.forEach(function(list) {
     list.addEventListener("change", () => {
+      kind_background(kind,kindCheckBlockPhysics,kindCheckBlockSpecial)
       attack_status_calculation(jsresponse,attackPersonality,kind,attackLetter,attackStatus,attackIndividual,attackEffort,attackLevel)
       defense_defense_status_calculation(jsresponse,defensePersonality,kind,defenseLetter,defenseDefenseStatus,defenseDefenseIndividual,defenseDefenseEffort,defenseLevel)
       damage_calculation_event(jsresponse,fieldContent,kind,wetherContent,attackLevel,attackTechniqueName,attackPower,attackStatus,defenseDefenseStatus,attackType,attackRankForm,attack_pokemon_type,attackTool,attackCharacteristic,defenseRankForm,defense_pokemon_type,defenseTool,defenseCharacteristic,attackBurn,defenseReflector,defenseHikari,defensePhysicalStatus,damageFigureYellow,damageFigureRed,damageFigureMax,damageFigureMin,adjustAbove,adjustUnder)
     });
-  })
-  kindCheckBlock.forEach(function(list) {
-    list.addEventListener("click", () => {
-      kindCheckBlock.forEach(function(item) {
-        item.setAttribute("style", "background-color: gainsboro")
-      })
-      list.setAttribute("style", "background-color: white")
-    })
   })
 
   attackPower.addEventListener("change", () => {

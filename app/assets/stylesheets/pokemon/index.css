@@ -435,7 +435,7 @@ input[type=checkbox] {
   margin-left: 60px;
 
 }
-.kind_check_block, .attack_personality_check_block, .defense_personality_check_block, .wether_check_block, .field_check_block{
+#kind_check_block_physics,#kind_check_block_special, .attack_personality_check_block, .defense_personality_check_block, .wether_check_block, .field_check_block{
   background-color: gainsboro;
   border: 1px solid gray;
   height: 25px;
@@ -448,12 +448,12 @@ input[type=checkbox] {
 .attack_personality_check_block:nth-of-type(2), .defense_personality_check_block:nth-of-type(2){
   background-color: white;
 }
-.kind_check_block:nth-of-type(1), .wether_check_block:nth-of-type(1), .field_check_block:nth-of-type(1){
+.wether_check_block:nth-of-type(1), .field_check_block:nth-of-type(1){
   background-color: white;
 }
 
 
-#kind_special_label{
+#kind_check_block_special{
   width: 60px;
 }
 .damage_title{
